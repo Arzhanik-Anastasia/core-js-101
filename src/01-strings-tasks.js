@@ -210,11 +210,30 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let rectangle = '';
+  for (let h = 1; h <= height; h += 1) {
+    for (let w = 1; w <= width; w += 1) {
+      if (w === 1 && h === 1) {
+        rectangle += '┌';
+      } else if (w === 1 && h === height) {
+        rectangle += '└';
+      } else if (w === width && h === 1) {
+        rectangle += '┐';
+      } else if (w === width && h === height) {
+        rectangle += '┘';
+      } else if (w !== 1 && h !== 1 && w !== width && h !== height) {
+        rectangle += ' ';
+      } else if ((w === 1 || w === width) && (h !== 1 || h !== height)) {
+        rectangle += '│';
+      } else if ((w !== 1 || w !== width) && (h === 1 || h === height)) {
+        rectangle += '─';
+      }
+    }
+    rectangle += '\n';
+  }
+  return rectangle;
 }
-
-
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
